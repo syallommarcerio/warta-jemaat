@@ -57,4 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+use App\Http\Controllers\Admin\AnnouncementController;
+
+Route::resource('admin/announcements', AnnouncementController::class)
+    ->middleware('auth');
 require __DIR__.'/auth.php';
