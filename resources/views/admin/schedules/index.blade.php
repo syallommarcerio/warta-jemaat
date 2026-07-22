@@ -84,31 +84,37 @@
 
                                 <td class="border p-2">
 
-                                    <div class="flex gap-2">
+                                <div class="flex gap-2">
 
-                                        <a href="{{ route('schedules.edit',$schedule) }}">
-                                            <x-secondary-button>
-                                                Edit
-                                            </x-secondary-button>
-                                        </a>
+                                    <a href="{{ route('schedule-details.index', $schedule) }}">
+                                        <x-primary-button>
+                                            Kelola Pelayan
+                                        </x-primary-button>
+                                    </a>
 
-                                        <form
-                                            action="{{ route('schedules.destroy',$schedule) }}"
-                                            method="POST">
+                                    <a href="{{ route('schedules.edit', $schedule) }}">
+                                        <x-secondary-button>
+                                            Edit
+                                        </x-secondary-button>
+                                    </a>
 
-                                            @csrf
-                                            @method('DELETE')
+                                    <form
+                                        action="{{ route('schedules.destroy', $schedule) }}"
+                                        method="POST">
 
-                                            <x-danger-button
-                                                onclick="return confirm('Hapus jadwal ini?')">
+                                        @csrf
+                                        @method('DELETE')
 
-                                                Hapus
+                                        <x-danger-button
+                                            onclick="return confirm('Hapus jadwal ini?')">
 
-                                            </x-danger-button>
+                                            Hapus
 
-                                        </form>
+                                        </x-danger-button>
 
-                                    </div>
+                                    </form>
+
+                                </div>
 
                                 </td>
 

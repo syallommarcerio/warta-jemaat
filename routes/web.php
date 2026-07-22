@@ -9,7 +9,31 @@ Route::get('/', [HomeController::class, 'index']);
 
 use App\Http\Controllers\Admin\ScheduleController;
 
-Route::resource('admin/schedules', ScheduleController::class);
+Route::resource('admin/schedules', ScheduleController::class)
+    ->middleware('auth');
+
+use App\Http\Controllers\Admin\ScheduleDetailController;
+
+    Route::get(
+        'admin/schedules/{schedule}/servants',
+        [ScheduleDetailController::class, 'index']
+    )
+    ->middleware('auth')
+    ->name('schedule-details.index');
+
+    Route::post(
+        'admin/schedules/{schedule}/servants',
+        [ScheduleDetailController::class, 'store']
+    )
+    ->middleware('auth')
+    ->name('schedule-details.store');
+
+Route::delete(
+    'admin/schedules/{schedule}/servants/{detail}',
+    [ScheduleDetailController::class, 'destroy']
+)
+->middleware('auth')
+->name('schedule-details.destroy');
 
 use App\Http\Controllers\Admin\ServantController;
 
