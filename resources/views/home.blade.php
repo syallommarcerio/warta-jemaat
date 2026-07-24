@@ -216,61 +216,72 @@
 <h2 class="font-headline-lg text-headline-lg text-on-surface">Jadwal Minggu Ini</h2>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-<!-- Card 1 -->
-<div class="bg-surface rounded-[16px] p-lg shadow-[0_4px_20px_rgba(30,64,175,0.06)] hover:shadow-[0_8px_30px_rgba(30,64,175,0.1)] transition-shadow flex flex-col gap-sm border border-outline/5 relative overflow-hidden">
-<div class="absolute top-0 left-0 w-2 h-full bg-primary"></div>
-<h3 class="font-headline-sm text-headline-sm text-primary">Kebaktian Umum 1</h3>
-<div class="flex items-center gap-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-sm">calendar_today</span>
-<span class="font-body-md text-body-md">Minggu, 20 Okt 2024</span>
+
+    @forelse($schedules as $schedule)
+
+        <div class="bg-surface rounded-[16px] p-lg shadow-[0_4px_20px_rgba(30,64,175,0.06)] hover:shadow-[0_8px_30px_rgba(30,64,175,0.1)] transition-shadow flex flex-col gap-sm border border-outline/5 relative overflow-hidden">
+
+            <div class="absolute top-0 left-0 w-2 h-full bg-primary"></div>
+
+            <h3 class="font-headline-sm text-headline-sm text-primary">
+                {{ $schedule->activity->name }}
+            </h3>
+
+            <div class="flex items-center gap-xs text-on-surface-variant">
+                <span class="material-symbols-outlined text-sm">
+                    calendar_today
+                </span>
+
+                <span class="font-body-md">
+                    {{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('l, d F Y') }}
+                </span>
+            </div>
+
+            <div class="flex items-center gap-xs text-on-surface-variant">
+
+                <span class="material-symbols-outlined text-sm">
+                    schedule
+                </span>
+
+                <span class="font-body-md">
+                    {{ $schedule->time }}
+                </span>
+
+            </div>
+
+            <div class="flex items-center gap-xs text-on-surface-variant">
+
+                <span class="material-symbols-outlined text-sm">
+                    groups
+                </span>
+
+                <span class="font-body-md">
+                    {{ $schedule->details->count() }} Pelayan
+                </span>
+
+            </div>
+
+            <button
+                class="mt-auto px-md py-xs rounded-full bg-primary/10 text-primary w-full">
+
+                Lihat Detail
+
+            </button>
+
+        </div>
+
+    @empty
+
+        <div class="col-span-3 text-center text-gray-500">
+
+            Belum ada jadwal pelayanan.
+
+        </div>
+
+    @endforelse
+
 </div>
-<div class="flex items-center gap-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-sm">schedule</span>
-<span class="font-body-md text-body-md">06:30 WIB</span>
-</div>
-<div class="flex items-center gap-xs text-on-surface-variant mb-md">
-<span class="material-symbols-outlined text-sm">person</span>
-<span class="font-body-md text-body-md">Pdt. John Doe</span>
-</div>
-<button class="mt-auto px-md py-xs rounded-full bg-primary/10 text-primary font-label-md text-label-md hover:bg-primary/20 transition-colors text-center w-full">Lihat Detail</button>
-</div>
-<!-- Card 2 -->
-<div class="bg-surface rounded-[16px] p-lg shadow-[0_4px_20px_rgba(30,64,175,0.06)] hover:shadow-[0_8px_30px_rgba(30,64,175,0.1)] transition-shadow flex flex-col gap-sm border border-outline/5 relative overflow-hidden">
-<div class="absolute top-0 left-0 w-2 h-full bg-secondary"></div>
-<h3 class="font-headline-sm text-headline-sm text-primary">Kebaktian Umum 2</h3>
-<div class="flex items-center gap-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-sm">calendar_today</span>
-<span class="font-body-md text-body-md">Minggu, 20 Okt 2024</span>
-</div>
-<div class="flex items-center gap-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-sm">schedule</span>
-<span class="font-body-md text-body-md">09:00 WIB</span>
-</div>
-<div class="flex items-center gap-xs text-on-surface-variant mb-md">
-<span class="material-symbols-outlined text-sm">person</span>
-<span class="font-body-md text-body-md">Pdt. Jane Smith</span>
-</div>
-<button class="mt-auto px-md py-xs rounded-full bg-primary/10 text-primary font-label-md text-label-md hover:bg-primary/20 transition-colors text-center w-full">Lihat Detail</button>
-</div>
-<!-- Card 3 -->
-<div class="bg-surface rounded-[16px] p-lg shadow-[0_4px_20px_rgba(30,64,175,0.06)] hover:shadow-[0_8px_30px_rgba(30,64,175,0.1)] transition-shadow flex flex-col gap-sm border border-outline/5 relative overflow-hidden">
-<div class="absolute top-0 left-0 w-2 h-full bg-tertiary-container"></div>
-<h3 class="font-headline-sm text-headline-sm text-primary">Sekolah Minggu</h3>
-<div class="flex items-center gap-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-sm">calendar_today</span>
-<span class="font-body-md text-body-md">Minggu, 20 Okt 2024</span>
-</div>
-<div class="flex items-center gap-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-sm">schedule</span>
-<span class="font-body-md text-body-md">09:00 WIB</span>
-</div>
-<div class="flex items-center gap-xs text-on-surface-variant mb-md">
-<span class="material-symbols-outlined text-sm">person</span>
-<span class="font-body-md text-body-md">Tim Guru SM</span>
-</div>
-<button class="mt-auto px-md py-xs rounded-full bg-primary/10 text-primary font-label-md text-label-md hover:bg-primary/20 transition-colors text-center w-full">Lihat Detail</button>
-</div>
-</div>
+
 </div>
 </section>
 </main>
