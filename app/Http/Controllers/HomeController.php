@@ -6,9 +6,9 @@ use App\Models\Announcement;
 use App\Models\Schedule;
 use App\Models\Setting;
 
-class HomeController extends Controller
-{
-    public function index()
+    class HomeController extends Controller
+    {
+        public function index()
     {
         $setting = Setting::first();
 
@@ -17,8 +17,10 @@ class HomeController extends Controller
             'details.serviceRole',
             'details.servant'
         ])
+        ->whereDate('date', '>=', now()->toDateString())
         ->orderBy('date')
-        ->take(3)
+        ->orderBy('time')
+        ->take(5)
         ->get();
 
         $announcements = Announcement::latest()

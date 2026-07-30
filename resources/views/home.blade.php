@@ -206,90 +206,219 @@
 </div>
 </nav>
 <main class="flex-grow pt-16">
+
 <!-- Hero Section -->
 <section class="relative py-md md:py-xl px-margin-mobile md:px-gutter flex flex-col items-center justify-center min-h-[50vh] md:min-h-[70vh] text-center overflow-hidden" id="beranda"><div class="absolute inset-0 z-0 opacity-5 pointer-events-none flex items-center justify-center"><div class="w-[800px] h-[800px] rounded-full bg-primary blur-3xl mix-blend-multiply"></div></div><div class="relative z-10 max-w-3xl flex flex-col items-center gap-md"><img alt="GKMI Winong Logo Large" class="w-24 h-24 md:w-48 md:h-48 rounded-full shadow-[0_4px_20px_rgba(30,64,175,0.15)] mb-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc73VsIlcOfA5d4JEOv0nTA9fFJH0I2Mdm3-EonWAmqt3m7HkYTglaaNEVKl0WGytwonLf2vtRG5TGmN0fKxU5PeEDKYYakiFArE7tGrOlN8yVFRXAhG8w1FoUyjMcOPWKe08n1S7mM8bgBXI7-_eRGqomVZS_FknN1rXMp1F01h1SARya1ioJcgqG3KeKDwzF_QwNAQ6DHsXhKAEtgSLNNiiYGgz9OeJ37iKYHMNpN4bX2UAMhEOAcZwUNjUSz4xxxvKAtDHF2Vc"/><div class="flex flex-col gap-xs"><h1 class="font-display-lg text-display-lg text-primary">Warta Jemaat {{ $setting->church_name }}</h1><p class="font-headline-sm text-headline-sm text-secondary italic">Urip iku Urup</p></div><p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Website resmi GKMI Winong untuk melihat jadwal pelayanan, pengumuman, dan informasi terbaru bagi jemaat.</p><div class="flex flex-col sm:flex-row gap-sm mt-sm"><a class="px-xl py-sm rounded-full bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wider hover:bg-primary/90 transition-all shadow-md hover:shadow-lg active:scale-95 text-center" href="#jadwal">Lihat Jadwal Minggu Ini</a><a class="px-xl py-sm rounded-full bg-surface text-primary border border-primary font-label-md text-label-md uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-all shadow-sm hover:shadow-md active:scale-95 text-center" href="#pengumuman">Lihat Pengumuman</a></div></div></section>
-<!-- Jadwal Pelayanan Section -->
+
+        <!-- Jadwal Pelayanan Section -->
+
 <section class="py-xl px-margin-mobile md:px-gutter bg-surface-container-lowest" id="jadwal">
-<div class="max-w-[1200px] mx-auto">
-<div class="flex items-center gap-sm mb-lg">
-<span class="material-symbols-outlined text-primary text-3xl fill">event</span>
-<h2 class="font-headline-lg text-headline-lg text-on-surface">Jadwal Minggu Ini</h2>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
 
-    @forelse($schedules as $schedule)
+    <div class="max-w-[1200px] mx-auto">
 
-        <div class="bg-surface rounded-[16px] p-lg shadow-[0_4px_20px_rgba(30,64,175,0.06)] hover:shadow-[0_8px_30px_rgba(30,64,175,0.1)] transition-shadow flex flex-col gap-sm border border-outline/5 relative overflow-hidden">
+        <div class="flex items-center gap-sm mb-lg">
 
-            <div class="absolute top-0 left-0 w-2 h-full bg-primary"></div>
+            <span class="material-symbols-outlined text-primary text-3xl fill">
+                event
+            </span>
 
-            <h3 class="font-headline-sm text-headline-sm text-primary">
-                {{ $schedule->activity->name }}
-            </h3>
-
-            <div class="flex items-center gap-xs text-on-surface-variant">
-                <span class="material-symbols-outlined text-sm">
-                    calendar_today
-                </span>
-
-                <span class="font-body-md">
-                    {{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('l, d F Y') }}
-                </span>
-            </div>
-
-            <div class="flex items-center gap-xs text-on-surface-variant">
-
-                <span class="material-symbols-outlined text-sm">
-                    schedule
-                </span>
-
-                <span class="font-body-md">
-                    {{ $schedule->time }}
-                </span>
-
-            </div>
-
-            <div class="flex items-center gap-xs text-on-surface-variant">
-
-                <span class="material-symbols-outlined text-sm">
-                    groups
-                </span>
-
-                <span class="font-body-md">
-                    {{ $schedule->details->count() }} Pelayan
-                </span>
-
-            </div>
-
-            <button
-                class="mt-auto px-md py-xs rounded-full bg-primary/10 text-primary w-full">
-
-                Lihat Detail
-
-            </button>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface">
+                Jadwal Mendatang
+            </h2>
 
         </div>
 
-    @empty
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
 
-        <div class="col-span-3 text-center text-gray-500">
+            @forelse($schedules as $schedule)
 
-            Belum ada jadwal pelayanan.
+                <div class="bg-surface rounded-[16px] p-lg shadow-[0_4px_20px_rgba(30,64,175,0.06)] hover:shadow-[0_8px_30px_rgba(30,64,175,0.1)] transition-shadow flex flex-col gap-sm border border-outline/5 relative overflow-hidden">
+
+                    <div class="absolute top-0 left-0 w-2 h-full bg-primary"></div>
+
+                    @if($loop->first)
+                        <span class="inline-block w-fit mb-2 px-3 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-600">
+                            📅 TERDEKAT
+                        </span>
+                    @endif
+
+                    <h3 class="font-headline-sm text-headline-sm text-primary">
+                        {{ $schedule->activity->name }}
+                    </h3>
+
+                    <div class="flex items-center gap-xs text-on-surface-variant">
+
+                        <span class="material-symbols-outlined text-sm">
+                            calendar_today
+                        </span>
+
+                        <span class="font-body-md">
+                            {{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('l, d F Y') }}
+                        </span>
+
+                    </div>
+
+                    <div class="flex items-center gap-xs text-on-surface-variant">
+
+                        <span class="material-symbols-outlined text-sm">
+                            schedule
+                        </span>
+
+                        <span class="font-body-md">
+                            {{ \Carbon\Carbon::parse($schedule->time)->format('H.i') }} WIB
+                        </span>
+
+                    </div>
+
+                    <div class="flex items-center gap-xs text-on-surface-variant">
+
+                        <span class="material-symbols-outlined text-sm">
+                            location_on
+                        </span>
+
+                        <span class="font-body-md">
+                            {{ $schedule->location }}
+                        </span>
+
+                    </div>
+
+                    @if($schedule->theme)
+
+                        <div class="flex items-start gap-xs text-on-surface-variant">
+
+                            <span class="material-symbols-outlined text-sm">
+                                auto_stories
+                            </span>
+
+                            <span class="font-body-md">
+                                {{ $schedule->theme }}
+                            </span>
+
+                        </div>
+
+                    @endif
+
+                    <div class="flex items-center gap-xs text-on-surface-variant">
+
+                        <span class="material-symbols-outlined text-sm">
+                            groups
+                        </span>
+
+                        <span class="font-body-md">
+                            {{ $schedule->details->count() }} Pelayan
+                        </span>
+
+                    </div>
+
+                    <button
+                        class="mt-auto px-md py-xs rounded-full bg-primary text-white hover:bg-primary/90 transition">
+
+                        Lihat Detail
+
+                    </button>
+
+                </div>
+
+            @empty
+
+                <div class="col-span-3 text-center text-gray-500 py-10">
+
+                    Belum ada jadwal pelayanan.
+
+                </div>
+
+            @endforelse
 
         </div>
 
-    @endforelse
+    </div>
 
-</div>
-
-</div>
 </section>
 </main>
+<!-- Pengumuman Section -->
+<section class="py-xl px-margin-mobile md:px-gutter bg-background" id="pengumuman">
+
+    <div class="max-w-[1200px] mx-auto">
+
+        <div class="flex items-center gap-sm mb-lg">
+
+            <span class="material-symbols-outlined text-primary text-3xl fill">
+                campaign
+            </span>
+
+            <h2 class="font-headline-lg text-headline-lg text-on-surface">
+                Pengumuman Terbaru
+            </h2>
+
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+
+            @forelse($announcements as $announcement)
+
+                <div class="bg-white rounded-2xl overflow-hidden shadow hover:shadow-lg transition duration-300">
+
+                    @if($announcement->image)
+
+                        <img
+                            src="{{ asset('storage/' . $announcement->image) }}"
+                            alt="{{ $announcement->title }}"
+                            class="w-full h-56 object-cover">
+
+                    @endif
+
+                    <div class="p-6 flex flex-col h-full">
+
+                        <p class="text-sm text-gray-500 mb-2">
+
+                            Berlaku
+                            {{ \Carbon\Carbon::parse($announcement->start_date)->translatedFormat('d M Y') }}
+
+                        </p>
+
+                        <h3 class="text-xl font-semibold text-primary mb-3">
+
+                            {{ $announcement->title }}
+
+                        </h3>
+
+                        <p class="text-gray-600 flex-grow">
+
+                            {{ Str::limit(strip_tags($announcement->description), 120) }}
+
+                        </p>
+
+                        <button
+                            class="mt-5 w-full py-2 rounded-full bg-primary text-white hover:bg-primary/90 transition">
+
+                            Baca Selengkapnya
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            @empty
+
+                <div class="col-span-3 text-center text-gray-500 py-10">
+
+                    Belum ada pengumuman.
+
+                </div>
+
+            @endforelse
+
+        </div>
+
+    </div>
+
+</section>
 <!-- Footer -->
 <footer class="w-full py-xl bg-tertiary dark:bg-surface-container-lowest text-on-tertiary dark:text-on-surface border-t border-outline/10">
 <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter max-w-[1200px] mx-auto px-margin-mobile md:px-sm">
 <div class="flex flex-col gap-sm">
-<span class="font-headline-sm text-headline-sm font-bold text-secondary-fixed dark:text-secondary">GKMI Winong Pati</span>
+<span class="font-headline-sm text-headline-sm font-bold text-secondary-fixed dark:text-secondary">{{ $setting->church_name }}</span>
 <p class="font-body-md text-body-md text-on-tertiary/80 dark:text-on-surface-variant max-w-sm">Melayani dengan kasih, bertumbuh dalam iman, dan menjadi berkat bagi sesama.</p>
 </div>
 <div class="flex flex-col gap-sm">
@@ -312,7 +441,7 @@
 </div>
 </div>
 <div class="mt-lg pt-md border-t border-on-tertiary/20 text-center px-margin-mobile">
-<p class="font-body-md text-body-md text-on-tertiary/60 dark:text-on-surface-variant">© 2024 GKMI Winong Pati. Semua Hak Dilindungi.</p>
+<p class="font-body-md text-body-md text-on-tertiary/60 dark:text-on-surface-variant">© {{ now()->year }} {{ $setting->church_name }}. Semua Hak Dilindungi.</p>
 </div>
 </footer>
 </body></html>
