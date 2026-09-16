@@ -6,7 +6,7 @@ use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
-
+use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {

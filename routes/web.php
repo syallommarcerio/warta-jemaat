@@ -12,6 +12,14 @@ use App\Http\Controllers\Admin\ScheduleController;
 Route::resource('admin/schedules', ScheduleController::class)
     ->middleware('auth');
 
+use App\Http\Controllers\ScheduleController as PublicScheduleController;
+
+Route::get('/jadwal', [PublicScheduleController::class, 'index'])
+    ->name('schedules.public');
+
+Route::get('/jadwal/{schedule}', [PublicScheduleController::class, 'show'])
+    ->name('schedule.show');
+
 use App\Http\Controllers\Admin\ScheduleDetailController;
 
     Route::get(

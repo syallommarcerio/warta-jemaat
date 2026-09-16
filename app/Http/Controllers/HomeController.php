@@ -6,12 +6,13 @@ use App\Models\Announcement;
 use App\Models\Schedule;
 use App\Models\Setting;
 
-    class HomeController extends Controller
-    {
-        public function index()
+class HomeController extends Controller
+{
+    public function index()
     {
         $setting = Setting::first();
 
+        // Ambil jadwal yang akan datang
         $schedules = Schedule::with([
             'activity',
             'details.serviceRole',
@@ -20,9 +21,10 @@ use App\Models\Setting;
         ->whereDate('date', '>=', now()->toDateString())
         ->orderBy('date')
         ->orderBy('time')
-        ->take(5)
+        ->take(6)
         ->get();
 
+        // Ambil 3 pengumuman terbaru
         $announcements = Announcement::latest()
             ->take(3)
             ->get();

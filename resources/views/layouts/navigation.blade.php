@@ -5,31 +5,63 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
+                    <x-application-logo />
                 </div>
 
-                <!-- Navigation Links -->
-               <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+        <!-- Navigation Links -->
+        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
-                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
+            {{-- MENU ADMIN --}}
+            @if(request()->is('admin/*') || request()->routeIs('dashboard'))
+
+                <x-nav-link
+                    :href="route('dashboard')"
+                    :active="request()->routeIs('dashboard')">
+                    Dashboard
+                </x-nav-link>
+
+                <x-nav-link
+                    :href="route('schedules.index')"
+                    :active="request()->routeIs('schedules.*')">
+                    Jadwal
                 </x-nav-link>
 
                 <x-nav-link
                     :href="route('servants.index')"
                     :active="request()->routeIs('servants.*')">
-                    {{ __('Pelayan') }}
+                    Pelayan
                 </x-nav-link>
 
                 <x-nav-link
                     :href="route('service-roles.index')"
                     :active="request()->routeIs('service-roles.*')">
-                    {{ __('Jabatan Pelayanan') }}
+                    Jabatan Pelayanan
                 </x-nav-link>
 
-            </div>
+                <x-nav-link
+                    :href="route('announcements.index')"
+                    :active="request()->routeIs('announcements.*')">
+                    Pengumuman
+                </x-nav-link>
+
+            {{-- MENU PUBLIC --}}
+            @else
+
+                <x-nav-link
+                    :href="url('/')"
+                    :active="request()->is('/')">
+                    Beranda
+                </x-nav-link>
+
+                <x-nav-link
+                    :href="route('schedules.public')"
+                    :active="request()->routeIs('schedules.public', 'schedule.show')">
+                    Jadwal
+                </x-nav-link>
+
+            @endif
+
+        </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
