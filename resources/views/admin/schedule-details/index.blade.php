@@ -1,181 +1,408 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Kelola Pelayan Jadwal
-        </h2>
+        <div>
+            <h2 class="font-bold text-2xl text-gray-800 leading-tight">
+                Kelola Pelayan Jadwal
+            </h2>
+
+            <p class="text-sm text-gray-500 mt-1">
+                Atur pelayan untuk jadwal pelayanan ini.
+            </p>
+        </div>
     </x-slot>
+
 
     <div class="py-8">
 
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <div class="bg-white rounded-lg shadow p-6">
-                @if(session('success'))
-                    <div class="mb-4 rounded bg-green-100 border border-green-300 text-green-700 px-4 py-3">
+            {{-- Informasi Jadwal --}}
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mb-6">
+
+                <div class="flex items-start gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-primary/10
+                                flex items-center justify-center shrink-0">
+
+                        <span class="material-symbols-outlined text-primary text-2xl">
+                            calendar_month
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <h3 class="text-xl font-bold text-gray-800">
+                            {{ $schedule->activity?->name ?? 'Kegiatan tidak tersedia' }}
+                        </h3>
+
+                        <p class="text-sm text-gray-500 mt-1">
+                            {{ \Carbon\Carbon::parse($schedule->date)->translatedFormat('l, d F Y') }}
+                            ·
+                            {{ substr($schedule->time, 0, 5) }}
+                            ·
+                            {{ $schedule->location ?? '-' }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {{-- Notifikasi --}}
+            @if(session('success'))
+
+                <div class="mb-6 flex items-center gap-3 rounded-xl
+                            bg-green-50 border border-green-200
+                            text-green-700 px-4 py-3">
+
+                    <span class="material-symbols-outlined">
+                        check_circle
+                    </span>
+
+                    <span class="text-sm font-medium">
                         {{ session('success') }}
-                    </div>
-                @endif
+                    </span>
 
-                @if(session('error'))
-                    <div class="mb-4 rounded bg-red-100 border border-red-300 text-red-700 px-4 py-3">
+                </div>
+
+            @endif
+
+
+            @if(session('error'))
+
+                <div class="mb-6 flex items-center gap-3 rounded-xl
+                            bg-red-50 border border-red-200
+                            text-red-700 px-4 py-3">
+
+                    <span class="material-symbols-outlined">
+                        error
+                    </span>
+
+                    <span class="text-sm font-medium">
                         {{ session('error') }}
-                    </div>
-                @endif
-                <h3 class="text-xl font-semibold mb-2">
-                    {{ $schedule->activity->name }}
-                </h3>
+                    </span>
 
-                <p class="text-gray-600 mb-6">
-                    {{ $schedule->date }} | {{ substr($schedule->time,0,5) }}
-                </p>
+                </div>
+
+            @endif
+
+
+            {{-- Form Tambah Pelayan --}}
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+
+                <div class="px-6 py-5 border-b border-gray-100">
+
+                    <div class="flex items-center gap-3">
+
+                        <div class="w-10 h-10 rounded-xl bg-primary/10
+                                    flex items-center justify-center">
+
+                            <span class="material-symbols-outlined text-primary">
+                                person_add
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <h3 class="text-lg font-bold text-gray-800">
+                                Tambah Pelayan
+                            </h3>
+
+                            <p class="text-sm text-gray-500 mt-1">
+                                Pilih peran dan ketik nama pelayan.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
 
                 <form
-                action="{{ route('schedule-details.store', $schedule) }}"
-                method="POST">
+                    action="{{ route('schedule-details.store', $schedule) }}"
+                    method="POST"
+                >
 
-                @csrf
+                    @csrf
 
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6">
 
-                        <div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-                            <label class="block mb-2 font-medium">
-                                Jabatan
-                            </label>
+                            {{-- Peran --}}
+                            <div>
 
-                            <select
-                                name="service_role_id"
-                                class="w-full border rounded px-3 py-2">
+                                <label
+                                    for="service_role_id"
+                                    class="block text-sm font-semibold text-gray-700 mb-2"
+                                >
+                                    Peran Pelayanan
+                                </label>
 
-                                @foreach($serviceRoles as $role)
+                                <select
+                                    id="service_role_id"
+                                    name="service_role_id"
+                                    class="w-full rounded-lg border-gray-300
+                                           focus:border-primary focus:ring-primary
+                                           text-sm"
+                                >
 
-                            <option value="{{ $role->id }}">
-                                {{ $role->name }}
-                            </option>
-                                @endforeach
+                                    @foreach($serviceRoles as $role)
 
-                            </select>
+                                        <option value="{{ $role->id }}">
+                                            {{ $role->name }}
+                                        </option>
+
+                                    @endforeach
+
+                                </select>
+
+                                @error('service_role_id')
+
+                                    <p class="flex items-center gap-1 text-red-500 text-sm mt-2">
+
+                                        <span class="material-symbols-outlined text-base">
+                                            error
+                                        </span>
+
+                                        {{ $message }}
+
+                                    </p>
+
+                                @enderror
+
+                            </div>
+
+
+                            {{-- Nama Pelayan --}}
+                            <div>
+
+                                <label
+                                    for="servant_name"
+                                    class="block text-sm font-semibold text-gray-700 mb-2"
+                                >
+                                    Nama Pelayan
+                                </label>
+
+                                <input
+                                    id="servant_name"
+                                    type="text"
+                                    name="servant_name"
+                                    value="{{ old('servant_name') }}"
+                                    placeholder="Contoh: Siska"
+                                    autocomplete="off"
+                                    class="w-full rounded-lg border-gray-300
+                                           focus:border-primary focus:ring-primary
+                                           text-sm"
+                                >
+
+                                <p class="text-xs text-gray-400 mt-2">
+                                    Ketik langsung nama jemaat yang bertugas.
+                                </p>
+
+                                @error('servant_name')
+
+                                    <p class="flex items-center gap-1 text-red-500 text-sm mt-2">
+
+                                        <span class="material-symbols-outlined text-base">
+                                            error
+                                        </span>
+
+                                        {{ $message }}
+
+                                    </p>
+
+                                @enderror
+
+                            </div>
 
                         </div>
 
-                        <div>
 
-                            <label class="block mb-2 font-medium">
-                                Pelayan
-                            </label>
+                        {{-- Tombol --}}
+                        <div class="mt-6 flex justify-end">
 
-                            <select
-                                name="servant_id"
-                                class="w-full border rounded px-3 py-2">
+                            <button
+                                type="submit"
+                                class="inline-flex items-center justify-center gap-2
+                                       px-5 py-2.5 rounded-lg
+                                       bg-blue-600 text-white
+                                       text-sm font-semibold
+                                       hover:bg-blue-700
+                                       transition shadow-sm"
+                            >
 
-                                @foreach($servants as $servant)
+                                <span class="material-symbols-outlined text-lg">
+                                    person_add
+                                </span>
 
-                            <option value="{{ $servant->id }}">
-                                {{ $servant->name }}
-                            </option>
+                                Tambah Pelayan
 
-                                @endforeach
-
-                            </select>
+                            </button>
 
                         </div>
-
-                    </div>
-
-                    <div class="mt-6">
-
-                        <x-primary-button>
-
-                            Tambah Pelayan
-
-                        </x-primary-button>
 
                     </div>
 
                 </form>
 
-                <hr class="my-8">
+            </div>
 
-                <table class="w-full border">
 
-                    <thead class="bg-gray-100">
+            {{-- Daftar Pelayan --}}
+            <div class="bg-white rounded-2xl border border-gray-200
+                        shadow-sm overflow-hidden mt-6">
 
-                        <tr>
+                <div class="px-6 py-5 border-b border-gray-100">
 
-                            <th class="border p-2">
-                                Jabatan
-                            </th>
+                    <div class="flex items-center justify-between gap-4">
 
-                            <th class="border p-2">
-                                Pelayan
-                            </th>
+                        <div>
 
-                            <th class="border p-2">
-                                Aksi
-                            </th>
+                            <h3 class="text-lg font-bold text-gray-800">
+                                Pelayan Jadwal
+                            </h3>
 
-                        </tr>
+                            <p class="text-sm text-gray-500 mt-1">
+                                {{ $details->count() }} pelayan telah ditambahkan.
+                            </p>
 
-                    </thead>
+                        </div>
 
-                    <tbody>
+                        <div class="w-10 h-10 rounded-xl bg-blue-50
+                                    flex items-center justify-center">
 
-                        @forelse($details as $detail)
+                            <span class="material-symbols-outlined text-primary">
+                                groups
+                            </span>
 
-                            <tr>
+                        </div>
 
-                                <td class="border p-2">
+                    </div>
 
-                                    {{ $detail->serviceRole->name }}
+                </div>
 
-                                </td>
 
-                                <td class="border p-2">
+                @if($details->count())
 
-                                    {{ $detail->servant->name }}
+                    <div class="divide-y divide-gray-100">
 
-                                </td>
-                                <td class="border p-2 text-center">
+                        @foreach($details as $detail)
 
-                                    <form
-                                        action="{{ route('schedule-details.destroy', [$schedule, $detail]) }}"
-                                        method="POST">
+                            <div class="px-6 py-4 flex items-center
+                                        justify-between gap-4">
 
-                                        @csrf
-                                        @method('DELETE')
+                                <div class="flex items-center gap-4 min-w-0">
 
-                                        <x-danger-button
-                                            onclick="return confirm('Hapus pelayan ini?')">
+                                    <div class="w-10 h-10 rounded-full bg-blue-50
+                                                flex items-center justify-center shrink-0">
 
-                                            Hapus
+                                        <span class="material-symbols-outlined text-primary">
+                                            person
+                                        </span>
 
-                                        </x-danger-button>
+                                    </div>
 
-                                    </form>
+                                    <div class="min-w-0">
 
-                                </td>
-                            </tr>
+                                        <p class="font-semibold text-gray-800 truncate">
+                                            {{ $detail->servant?->name ?? '-' }}
+                                        </p>
 
-                        @empty
+                                        <p class="text-sm text-gray-500 mt-0.5">
+                                            {{ $detail->serviceRole?->name ?? '-' }}
+                                        </p>
 
-                            <tr>
+                                    </div>
 
-                                <td
-                                    colspan="3"
-                                    class="border p-4 text-center text-gray-500">
+                                </div>
 
-                                    Belum ada pelayan.
 
-                                </td>
+                                <form
+                                    action="{{ route('schedule-details.destroy', [$schedule, $detail]) }}"
+                                    method="POST"
+                                    class="shrink-0"
+                                >
 
-                            </tr>
+                                    @csrf
+                                    @method('DELETE')
 
-                        @endforelse
+                                    <button
+                                        type="submit"
+                                        onclick="return confirm('Hapus pelayan ini?')"
+                                        title="Hapus pelayan"
+                                        class="inline-flex items-center justify-center
+                                               w-9 h-9 rounded-lg
+                                               bg-red-50 text-red-600
+                                               hover:bg-red-100
+                                               transition"
+                                    >
 
-                    </tbody>
+                                        <span class="material-symbols-outlined text-lg">
+                                            delete
+                                        </span>
 
-                </table>
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        @endforeach
+
+                    </div>
+
+                @else
+
+                    <div class="px-6 py-12 text-center">
+
+                        <div class="w-14 h-14 mx-auto rounded-full bg-gray-100
+                                    flex items-center justify-center">
+
+                            <span class="material-symbols-outlined text-gray-400 text-2xl">
+                                groups
+                            </span>
+
+                        </div>
+
+                        <p class="mt-4 font-semibold text-gray-700">
+                            Belum ada pelayan
+                        </p>
+
+                        <p class="text-sm text-gray-500 mt-1">
+                            Tambahkan pelayan menggunakan form di atas.
+                        </p>
+
+                    </div>
+
+                @endif
+
+            </div>
+
+
+            {{-- Kembali --}}
+            <div class="mt-6">
+
+                <a
+                    href="{{ route('schedules.index') }}"
+                    class="inline-flex items-center gap-2
+                           text-sm font-semibold text-gray-600
+                           hover:text-primary transition"
+                >
+
+                    <span class="material-symbols-outlined text-lg">
+                        arrow_back
+                    </span>
+
+                    Kembali ke Jadwal
+
+                </a>
 
             </div>
 

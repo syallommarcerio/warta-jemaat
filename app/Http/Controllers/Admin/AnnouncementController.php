@@ -38,10 +38,29 @@ class AnnouncementController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ], [
+            'title.required' => 'Judul wajib diisi.',
+            'title.string' => 'Judul harus berupa teks.',
+            'title.max' => 'Judul maksimal 255 karakter.',
+
+            'description.required' => 'Deskripsi wajib diisi.',
+            'description.string' => 'Deskripsi harus berupa teks.',
+
+            'start_date.required' => 'Tanggal mulai wajib diisi.',
+            'start_date.date' => 'Tanggal mulai tidak valid.',
+
+            'end_date.date' => 'Tanggal berakhir tidak valid.',
+            'end_date.after_or_equal' => 'Tanggal berakhir harus setelah atau sama dengan tanggal mulai.',
+
+            'image.image' => 'File yang diunggah harus berupa gambar.',
+            'image.mimes' => 'Gambar harus berformat JPG, JPEG, atau PNG.',
+            'image.max' => 'Ukuran gambar maksimal 2 MB.',
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('announcements', 'public');
+            $validated['image'] = $request
+                ->file('image')
+                ->store('announcements', 'public');
         }
 
         Announcement::create($validated);
@@ -66,6 +85,7 @@ class AnnouncementController extends Controller
     {
         return view('admin.announcements.edit', compact('announcement'));
     }
+
     /**
      * Update the specified resource in storage.
      */
@@ -77,6 +97,23 @@ class AnnouncementController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'nullable|date|after_or_equal:start_date',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ], [
+            'title.required' => 'Judul wajib diisi.',
+            'title.string' => 'Judul harus berupa teks.',
+            'title.max' => 'Judul maksimal 255 karakter.',
+
+            'description.required' => 'Deskripsi wajib diisi.',
+            'description.string' => 'Deskripsi harus berupa teks.',
+
+            'start_date.required' => 'Tanggal mulai wajib diisi.',
+            'start_date.date' => 'Tanggal mulai tidak valid.',
+
+            'end_date.date' => 'Tanggal berakhir tidak valid.',
+            'end_date.after_or_equal' => 'Tanggal berakhir harus setelah atau sama dengan tanggal mulai.',
+
+            'image.image' => 'File yang diunggah harus berupa gambar.',
+            'image.mimes' => 'Gambar harus berformat JPG, JPEG, atau PNG.',
+            'image.max' => 'Ukuran gambar maksimal 2 MB.',
         ]);
 
         if ($request->hasFile('image')) {

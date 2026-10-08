@@ -219,7 +219,7 @@
                 </a>
 
                 <a
-                    href="{{ route('schedules.index') }}"
+                    href="{{ route('schedules.public') }}"
                     class="font-label-md uppercase tracking-wider
                            text-primary font-semibold
                            border-b-2 border-secondary-container pb-1"
@@ -260,16 +260,67 @@
 
 
             {{-- MOBILE --}}
-            <button class="md:hidden p-xs text-on-surface">
-
+            <button
+                id="mobile-menu-button"
+                type="button"
+                class="md:hidden p-xs text-on-surface"
+                aria-label="Buka menu"
+            >
                 <span class="material-symbols-outlined text-2xl">
                     menu
                 </span>
-
             </button>
 
         </div>
 
+        {{-- MOBILE MENU --}}
+        <div
+            id="mobile-menu"
+            class="hidden md:hidden bg-surface border-t border-outline/10 shadow-sm"
+        >
+            <div class="flex flex-col px-margin-mobile py-sm gap-sm">
+
+                <a
+                    href="{{ url('/') }}"
+                    class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                >
+                    Beranda
+                </a>
+
+                <a
+                    href="{{ route('schedules.public') }}"
+                    class="font-label-md text-primary font-semibold"
+                >
+                    Jadwal Pelayanan
+                </a>
+
+                <a
+                    href="{{ url('/#pengumuman') }}"
+                    class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                >
+                    Pengumuman
+                </a>
+
+                <a
+                    href="{{ url('/#kontak') }}"
+                    class="font-label-md text-on-surface-variant hover:text-primary transition-colors"
+                >
+                    Kontak
+                </a>
+
+                <a
+                    href="{{ route('login') }}"
+                    class="inline-flex items-center justify-center
+                        px-md py-xs rounded-full
+                        bg-primary text-on-primary
+                        font-label-md
+                        hover:bg-primary/90 transition"
+                >
+                    Login Admin
+                </a>
+
+            </div>
+        </div>
     </nav>
 
 
@@ -440,7 +491,7 @@
                     </a>
 
                     <a
-                        href="{{ route('schedules.index') }}"
+                        href="{{ route('schedules.public') }}"
                         class="text-white/70 hover:text-white transition"
                     >
                         Jadwal
@@ -511,6 +562,14 @@
 
     </footer>
 
+    <script>
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', function () {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
 
 </body>
 

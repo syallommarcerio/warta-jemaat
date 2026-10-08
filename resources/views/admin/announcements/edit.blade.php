@@ -29,6 +29,11 @@
                             name="title"
                             value="{{ old('title', $announcement->title) }}"
                             class="w-full border rounded px-3 py-2">
+                            @error('title')
+                                <p class="mt-1 text-sm text-red-600">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                     </div>
 
                     <div class="mb-4">
@@ -40,6 +45,11 @@
                             name="description"
                             rows="5"
                             class="w-full border rounded px-3 py-2">{{ old('description', $announcement->description) }}</textarea>
+                            @error('description')
+                                <p class="mt-1 text-sm text-red-600">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                     </div>
 
                     <div class="grid grid-cols-2 gap-4">
@@ -54,6 +64,11 @@
                                 name="start_date"
                                 value="{{ old('start_date', $announcement->start_date) }}"
                                 class="w-full border rounded px-3 py-2">
+                                @error('start_date')
+                                    <p class="mt-1 text-sm text-red-600">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                         </div>
 
                         <div>
@@ -66,6 +81,11 @@
                                 name="end_date"
                                 value="{{ old('end_date', $announcement->end_date) }}"
                                 class="w-full border rounded px-3 py-2">
+                                @error('end_date')
+                                    <p class="mt-1 text-sm text-red-600">
+                                        {{ $message }}
+                                    </p>
+                                @enderror
                         </div>
 
                     </div>
@@ -87,12 +107,25 @@
                             type="file"
                             name="image"
                             class="w-full">
+                            @error('image')
+                                <p class="mt-1 text-sm text-red-600">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                     </div>
 
                     <div class="mt-6">
-                        <x-primary-button>
+                        <button
+                            type="submit"
+                            class="inline-flex items-center justify-center gap-2
+                                px-4 py-2.5 rounded-lg
+                                bg-blue-600 text-white
+                                text-sm font-semibold
+                                hover:bg-blue-700
+                                transition shadow-sm"
+                        >
                             Update
-                        </x-primary-button>
+                        </button>
                     </div>
 
                 </form>

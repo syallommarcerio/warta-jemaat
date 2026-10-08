@@ -38,9 +38,17 @@
 
                     <div class="flex gap-3">
 
-                        <x-primary-button>
-                            Simpan Perubahan
-                        </x-primary-button>
+                    <button
+                        type="submit"
+                        class="inline-flex items-center justify-center gap-2
+                            px-4 py-2.5 rounded-lg
+                            bg-blue-600 text-white
+                            text-sm font-semibold
+                            hover:bg-blue-700
+                            transition shadow-sm"
+                    >
+                        Simpan Perubahan
+                    </button>
 
                         <a href="{{ route('service-roles.index') }}">
                             <x-secondary-button>

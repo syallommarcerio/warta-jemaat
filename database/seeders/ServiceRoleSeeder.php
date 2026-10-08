@@ -18,13 +18,20 @@ class ServiceRoleSeeder extends Seeder
             'Penerima Tamu',
             'Doa Pembuka',
             'Doa Penutup',
+
+            // Role tambahan
+            'Singer',
+            'Pelayan Persembahan',
+            'Keamanan',
+            'Doa Tanggapan Firman',
+            'Pembawa Alkitab',
         ];
 
         foreach ($roles as $role) {
-            ServiceRole::create([
-                'name' => $role,
-                'is_active' => true,
-            ]);
+            ServiceRole::updateOrCreate(
+                ['name' => $role],
+                ['is_active' => true]
+            );
         }
     }
 }

@@ -22,10 +22,17 @@
                         Daftar Jabatan Pelayanan
                     </h3>
 
-                    <a href="{{ route('service-roles.create') }}">
-                        <x-primary-button>
-                            + Tambah Jabatan
-                        </x-primary-button>
+                    <a
+                        href="{{ route('service-roles.create') }}"
+                        class="inline-flex items-center justify-center gap-2
+                            px-4 py-2.5 rounded-lg
+                            bg-blue-600 text-white
+                            text-sm font-semibold
+                            hover:bg-blue-700
+                            transition shadow-sm"
+                    >
+                        <span class="text-lg leading-none">+</span>
+                        Tambah Jabatan
                     </a>
                 </div>
 
@@ -65,7 +72,10 @@
                                             @csrf
                                             @method('DELETE')
 
-                                            <x-danger-button onclick="return confirm('Yakin ingin menghapus jabatan ini?')">
+                                            <x-danger-button
+                                                type="submit"
+                                                onclick="return confirm('Yakin ingin menghapus jabatan ini?')"
+                                            >
                                                 Hapus
                                             </x-danger-button>
 

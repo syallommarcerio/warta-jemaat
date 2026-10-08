@@ -18,11 +18,18 @@
                         Daftar Pengumuman
                     </h3>
 
-                    <a href="{{ route('announcements.create') }}">
-                        <x-primary-button>
-                            Tambah Pengumuman
-                        </x-primary-button>
-                    </a>
+                <a
+                    href="{{ route('announcements.create') }}"
+                    class="inline-flex items-center justify-center gap-2
+                        px-4 py-2.5 rounded-lg
+                        bg-blue-600 text-white
+                        text-sm font-semibold
+                        hover:bg-blue-700
+                        transition shadow-sm"
+                >
+                    <span class="text-lg leading-none">+</span>
+                    Tambah Pengumuman
+                </a>
 
                 </div>
 
@@ -96,11 +103,21 @@
                                         </x-secondary-button>
                                     </a>
 
-                                    <a href="#">
-                                        <x-danger-button>
+                                    <form
+                                        action="{{ route('announcements.destroy', $announcement) }}"
+                                        method="POST"
+                                        class="inline"
+                                    >
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <x-danger-button
+                                            type="submit"
+                                            onclick="return confirm('Yakin ingin menghapus pengumuman ini?')"
+                                        >
                                             Hapus
                                         </x-danger-button>
-                                    </a>
+                                    </form>
 
                                 </td>
 

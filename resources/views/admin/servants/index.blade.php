@@ -20,10 +20,17 @@
                     Daftar Pelayan
                 </h3>
 
-                <a href="{{ route('servants.create') }}">
-                    <x-primary-button>
-                        + Tambah Pelayan
-                    </x-primary-button>
+               <a
+                    href="{{ route('servants.create') }}"
+                    class="inline-flex items-center justify-center gap-2
+                        px-4 py-2.5 rounded-lg
+                        bg-blue-600 text-white
+                        text-sm font-semibold
+                        hover:bg-blue-700
+                        transition shadow-sm"
+                >   
+                    <span class="text-lg leading-none">+</span>
+                    Tambah Pelayan
                 </a>
             </div>
 

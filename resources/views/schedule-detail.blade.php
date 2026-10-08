@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>
-        {{ $schedule->activity->name }} - {{ $schedule->activity->name }}
+        {{ $schedule->activity->name }} - GKMI Winong
     </title>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>

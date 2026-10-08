@@ -21,4 +21,13 @@ class StoreServiceRoleRequest extends FormRequest
             'name' => 'required|string|max:255',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama jabatan wajib diisi.',
+            'name.string' => 'Nama jabatan harus berupa teks.',
+            'name.max' => 'Nama jabatan maksimal 255 karakter.',
+        ];
+    }
 }

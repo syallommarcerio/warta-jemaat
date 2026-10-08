@@ -10,7 +10,8 @@ Route::get('/', [HomeController::class, 'index']);
 use App\Http\Controllers\Admin\ScheduleController;
 
 Route::resource('admin/schedules', ScheduleController::class)
-    ->middleware('auth');
+    ->middleware('auth')
+    ->names('schedules');
 
 use App\Http\Controllers\ScheduleController as PublicScheduleController;
 
@@ -46,12 +47,14 @@ Route::delete(
 use App\Http\Controllers\Admin\ServantController;
 
 Route::resource('admin/servants', ServantController::class)
-    ->middleware('auth');
+    ->middleware('auth')
+    ->names('servants');
 
 use App\Http\Controllers\Admin\ServiceRoleController;
 
 Route::resource('admin/service-roles', ServiceRoleController::class)
-    ->middleware('auth');
+    ->middleware('auth')
+    ->names('service-roles');
 
 use App\Http\Controllers\Admin\AdminController;
 
@@ -68,5 +71,7 @@ Route::middleware('auth')->group(function () {
 use App\Http\Controllers\Admin\AnnouncementController;
 
 Route::resource('admin/announcements', AnnouncementController::class)
-    ->middleware('auth');
+    ->middleware('auth')
+    ->names('announcements');
+    
 require __DIR__.'/auth.php';
