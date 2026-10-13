@@ -328,14 +328,17 @@
                                     action="{{ route('schedule-details.destroy', [$schedule, $detail]) }}"
                                     method="POST"
                                     class="shrink-0"
-                                >
+                                
+                                        data-confirm-delete
+                                        data-confirm-title="Hapus pelayan dari jadwal?"
+                                        data-confirm-message="Penugasan pelayan ini akan dihapus dari jadwal."
+>
 
                                     @csrf
                                     @method('DELETE')
 
                                     <button
                                         type="submit"
-                                        onclick="return confirm('Hapus pelayan ini?')"
                                         title="Hapus pelayan"
                                         class="inline-flex items-center justify-center
                                                w-9 h-9 rounded-lg

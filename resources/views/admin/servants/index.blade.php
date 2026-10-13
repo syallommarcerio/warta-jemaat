@@ -66,12 +66,17 @@
                                             </x-secondary-button>
                                         </a>
 
-                                        <form action="{{ route('servants.destroy', $servant) }}" method="POST">
+                                        <form
+                                            action="{{ route('servants.destroy', $servant) }}"
+                                            method="POST"
+                                            data-confirm-delete
+                                            data-confirm-title="Hapus data pelayan?"
+                                            data-confirm-message="Data pelayan ini akan dihapus secara permanen."
+                                        >
                                             @csrf
                                             @method('DELETE')
 
                                             <x-danger-button
-                                                onclick="return confirm('Yakin ingin menghapus pelayan ini?')">
                                                 Hapus
                                             </x-danger-button>
                                         </form>

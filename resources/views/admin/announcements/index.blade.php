@@ -107,13 +107,16 @@
                                         action="{{ route('announcements.destroy', $announcement) }}"
                                         method="POST"
                                         class="inline"
-                                    >
+                                    
+                                        data-confirm-delete
+                                        data-confirm-title="Hapus pengumuman?"
+                                        data-confirm-message="Pengumuman ini akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan."
+>
                                         @csrf
                                         @method('DELETE')
 
                                         <x-danger-button
                                             type="submit"
-                                            onclick="return confirm('Yakin ingin menghapus pengumuman ini?')"
                                         >
                                             Hapus
                                         </x-danger-button>

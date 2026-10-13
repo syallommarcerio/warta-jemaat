@@ -37,5 +37,7 @@
                 {{ $slot }}
             </main>
         </div>
+
+        @include('components.confirm-delete-modal')
     </body>
 </html>

@@ -68,13 +68,18 @@
                                             </x-secondary-button>
                                         </a>
 
-                                        <form action="{{route('service-roles.destroy', $serviceRole) }}" method="POST">
+                                        <form
+                                            action="{{ route('service-roles.destroy', $serviceRole) }}"
+                                            method="POST"
+                                            data-confirm-delete
+                                            data-confirm-title="Hapus jabatan pelayanan?"
+                                            data-confirm-message="Jabatan ini akan dihapus secara permanen. Jika masih digunakan, database mungkin menolak penghapusan."
+                                        >
                                             @csrf
                                             @method('DELETE')
 
                                             <x-danger-button
                                                 type="submit"
-                                                onclick="return confirm('Yakin ingin menghapus jabatan ini?')"
                                             >
                                                 Hapus
                                             </x-danger-button>

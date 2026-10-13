@@ -309,8 +309,11 @@
                                             <form
                                                 action="{{ route('schedules.destroy', $schedule) }}"
                                                 method="POST"
-                                                onsubmit="return confirm('Yakin ingin menghapus jadwal ini?')"
-                                            >
+                                            
+                                        data-confirm-delete
+                                        data-confirm-title="Hapus jadwal?"
+                                        data-confirm-message="Jadwal pelayanan ini akan dihapus. Data terkait mungkin ikut terhapus sesuai aturan database."
+>
 
                                                 @csrf
                                                 @method('DELETE')

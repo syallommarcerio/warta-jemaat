@@ -20,10 +20,10 @@ class ActivitySeeder extends Seeder
         ];
 
         foreach ($activities as $activity) {
-            Activity::create([
-                'name' => $activity,
-                'is_active' => true,
-            ]);
+            Activity::updateOrCreate(
+                ['name' => $activity],
+                ['is_active' => true]
+            );
         }
     }
 }
