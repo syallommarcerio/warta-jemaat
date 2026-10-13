@@ -8,9 +8,15 @@ use App\Models\Setting;
 
 class HomeController extends Controller
 {
-    public function index()
+public function index()
     {
         $setting = Setting::first();
+
+        if (!$setting) {
+            $setting = new Setting();
+            $setting->church_name = 'GKMI Winong';
+            $setting->address = 'Winong, Pati, Jawa Tengah';
+        }
 
         // Ambil jadwal yang akan datang
         $schedules = Schedule::with([
