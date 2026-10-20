@@ -17,9 +17,13 @@ class AppServiceProvider extends ServiceProvider
     {
         Carbon::setLocale('id');
 
-        if (app()->environment('production')) {
-            URL::forceScheme('https');
-            URL::forceRootUrl(config('app.url'));
-        }
+    if (app()->environment('production')) {
+        URL::forceScheme('https');
+        URL::forceRootUrl(config('app.url'));
+
+        \Illuminate\Support\Facades\Vite::createAssetPathsUsing(
+            fn ($path, $secure) => asset('build/'.$path, true)
+        );
+    }
     }
 }
